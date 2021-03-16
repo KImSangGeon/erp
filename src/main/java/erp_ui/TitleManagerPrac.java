@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import erp_ui_content.TitlePanel;
+import erp_ui_content.AbstractContetPanel;
 import erp_ui_list.TitleTablePanelPrac;
 import erp_ui_service.TitleServicePrac;
 
@@ -16,7 +16,7 @@ public class TitleManagerPrac extends JFrame {
 
 	private JPanel contentPane;
 	private TitleTablePanelPrac pList;
-	private TitlePanel pContet;
+	private AbstractContetPanel pContet;
 	private TitleServicePrac service;
 
 
@@ -33,7 +33,7 @@ public class TitleManagerPrac extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 		
-		pContet = new TitlePanel();
+		pContet = new JPanel();
 		contentPane.add(pContet);
 		
 		JPanel pBtns = new JPanel();

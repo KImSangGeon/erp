@@ -22,7 +22,7 @@ public class EmployeeTablePanel extends AbstractCustomTablePanel<Employee> {
 		setTableCellAlign(SwingConstants.CENTER, 0, 1, 2, 3, 5);
 		setTableCellAlign(SwingConstants.RIGHT, 4);
 		
-		setTableCellWidth(100, 250, 100, 200, 300, 100);
+		setTableCellWidth(100, 250, 200, 300, 300, 200);
 		
 	}
 

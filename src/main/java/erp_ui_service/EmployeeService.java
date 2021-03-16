@@ -35,5 +35,15 @@ public class EmployeeService extends JPanel {
 		return EmpDao.selectEmployeeByDept(dept);
 	}
 	
+	public void removeEmployee(Employee employee) {
+		EmpDao.deleteEmployee(employee);
+	}
+	public void modifyEmployee(Employee employee) {
+		EmpDao.updateEmployee(employee);
+	}
+	public void addEmployee(Employee employee) {
+		EmpDao.insertEmployee(employee);
+	}
+	
 
 }
