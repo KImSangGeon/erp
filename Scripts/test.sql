@@ -26,3 +26,9 @@ from employee
 where empno = 1003;
 
 select * from employee;
+
+--  pass 길이 확인
+--  단반향 함수(Hash :MD5)
+select password('aasadsadsadsadsdsaddsadsaa'), length(password('aaaasdsadsadsadadsadsadasdsa')) from dual;
+
+
