@@ -20,7 +20,7 @@ import erp_dto.Employee;
 import erp_ui_Exception.NotSelectedExceotion;
 import erp_ui_Exception.SqlConstraintException;
 import erp_ui_content.DeptPanel;
-import erp_ui_content.InterfaceItem;
+import erp_ui_content.AbstractContentPanel;
 import erp_ui_list.AbstractCustomTablePanel;
 import erp_ui_list.DepartmentTablePanel;
 import erp_ui_service.DeptService;
@@ -29,7 +29,7 @@ import erp_ui_service.DeptService;
 public class DeptManager extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private InterfaceItem<Department> pContent;
+	private AbstractContentPanel<Department> pContent;
 	private DepartmentTablePanel pList;
 	private DeptService service;
 	private JButton btnAdd;

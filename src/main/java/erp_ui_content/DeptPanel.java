@@ -11,7 +11,7 @@ import javax.swing.border.TitledBorder;
 import erp_dto.Department;
 import erp_ui_Exception.InvalidCheckException;
 
-public class DeptPanel extends InterfaceItem<Department>   {
+public class DeptPanel extends AbstractContentPanel<Department>   {
 	private JTextField tfDeptNo;
 	private JTextField tfDeptName;
 	private JTextField tfFloor;
@@ -19,8 +19,7 @@ public class DeptPanel extends InterfaceItem<Department>   {
 	public DeptPanel() {
 		initialize();
 	}
-	@Override
-	public void initialize() {
+	private void initialize() {
 		
 		setBorder(new TitledBorder(null, "부서 정보", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(new GridLayout(0, 2, 10, 10));

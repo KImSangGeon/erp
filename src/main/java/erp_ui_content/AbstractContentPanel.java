@@ -4,11 +4,10 @@ import javax.swing.JPanel;
 
 import erp_ui_service.TitleService;
 
-public abstract class InterfaceItem<T> extends JPanel{
+public abstract class AbstractContentPanel<T> extends JPanel{
 
 
 	
-	public abstract void initialize();
 	
 	public abstract void setItem(T t);
 	public abstract T getItem();

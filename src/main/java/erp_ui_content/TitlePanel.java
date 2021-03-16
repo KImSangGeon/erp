@@ -10,7 +10,7 @@ import javax.swing.border.TitledBorder;
 import erp_dto.Title;
 import erp_ui_Exception.InvalidCheckException;
 
-public class TitlePanel extends InterfaceItem<Title> {
+public class TitlePanel extends AbstractContentPanel<Title> {
 	private JTextField tFNo;
 	private JTextField tFName;
 
@@ -20,8 +20,7 @@ public class TitlePanel extends InterfaceItem<Title> {
 		initialize();
 	}
 	
-	@Override
-	public void initialize() {
+	private void initialize() {
 		setBorder(new TitledBorder(null, "직책정보", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(new GridLayout(0, 2, 10, 10));
 		
