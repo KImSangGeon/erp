@@ -16,10 +16,11 @@ public class EmployeeDetail {
 	public EmployeeDetail(int empNo) {
 		this.empNo = empNo;
 	}
-	public EmployeeDetail(int empNo, boolean gender, Date hiredate, byte[] pic) {
+	public EmployeeDetail(int empNo, boolean gender, Date hiredate, String pass, byte[] pic) {
 		this.empNo = empNo;
 		this.gender = gender;
 		this.hiredate = hiredate;
+		this.Pass =pass;
 		this.pic = pic;
 	}
 	public int getEmpNo() {
@@ -54,8 +55,9 @@ public class EmployeeDetail {
 	}
 	@Override
 	public String toString() {
-		return String.format("EmpDetail [empNo=%s, gender=%s, hiredate=%s, pic=%s]", empNo, gender, hiredate,
-				Arrays.toString(pic));
+		return String.format("EmpDetail [empNo=%s, gender=%s, hiredate=%s, pic=%s]",
+				empNo, gender, hiredate, pic.length);
+				
 	}
 
 	

@@ -1,14 +1,11 @@
 package erp_ui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import erp_ui_content.AbstractContetPanel;
+
 import erp_ui_list.TitleTablePanelPrac;
 import erp_ui_service.TitleServicePrac;
 
@@ -16,7 +13,6 @@ public class TitleManagerPrac extends JFrame {
 
 	private JPanel contentPane;
 	private TitleTablePanelPrac pList;
-	private AbstractContetPanel pContet;
 	private TitleServicePrac service;
 
 
@@ -33,8 +29,8 @@ public class TitleManagerPrac extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 		
-		pContet = new JPanel();
-		contentPane.add(pContet);
+//		pContet = new JPanel();
+//		contentPane.add(pContet);
 		
 		JPanel pBtns = new JPanel();
 		contentPane.add(pBtns);

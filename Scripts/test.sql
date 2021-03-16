@@ -32,3 +32,11 @@ select * from employee;
 select password('aasadsadsadsadsdsaddsadsaa'), length(password('aaaasdsadsadsadadsadsadasdsa')) from dual;
 
 
+
+INSERT INTO erp.emp_detail
+(empno, pic, gender, hiredate, pass)
+VALUES(?, ?, ?, ?, ?);
+
+select * from erp.emp_detail;
+
+

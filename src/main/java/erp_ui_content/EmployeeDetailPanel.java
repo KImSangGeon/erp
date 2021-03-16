@@ -148,7 +148,7 @@ public class EmployeeDetailPanel extends AbstractContentPanel<EmployeeDetail> im
 	@Override
 	public void validCheck() {
 		if(!lblConfirm.getText().equals("일치")) {
-			throw new InvalidCheckException("비밀번호 불일치");
+//			throw new InvalidCheckException("비밀번호 불일치");
 		}
 		
 	}
