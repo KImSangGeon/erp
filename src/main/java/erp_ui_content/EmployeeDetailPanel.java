@@ -4,13 +4,19 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -19,16 +25,21 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.toedter.calendar.JDateChooser;
 
+import erp_dto.Employee;
 import erp_dto.EmployeeDetail;
 import erp_ui_Exception.InvalidCheckException;
 
 public class EmployeeDetailPanel extends AbstractContentPanel<EmployeeDetail> implements ActionListener {
+	
 	private String imgPath = System.getProperty("user.dir") + File.separator + "images" + File.separator;
 	private JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
 	
@@ -39,6 +50,7 @@ public class EmployeeDetailPanel extends AbstractContentPanel<EmployeeDetail> im
 	private JLabel lblConfirm;
 	private JPasswordField tFPass1;
 	private JPasswordField tFPass2;
+	private JTextField tFEmpNo;
 	
 
 	public EmployeeDetailPanel() {
@@ -86,6 +98,15 @@ public class EmployeeDetailPanel extends AbstractContentPanel<EmployeeDetail> im
 		pItem.add(pContet);
 		pContet.setLayout(new GridLayout(0, 2, 10, 0));
 		
+		JLabel lblEmpNo = new JLabel("사원번호");
+		lblEmpNo.setHorizontalAlignment(SwingConstants.RIGHT);
+		pContet.add(lblEmpNo);
+		
+		tFEmpNo = new JTextField();
+		tFEmpNo.setEditable(false);
+		pContet.add(tFEmpNo);
+		tFEmpNo.setColumns(10);
+		
 		JLabel lblHireDate = new JLabel("입사일");
 		lblHireDate.setHorizontalAlignment(SwingConstants.RIGHT);
 		pContet.add(lblHireDate);
@@ -105,7 +126,7 @@ public class EmployeeDetailPanel extends AbstractContentPanel<EmployeeDetail> im
 		rdbtnFemale.setVerticalAlignment(SwingConstants.TOP);
 		pGender.add(rdbtnFemale);
 		
-		JRadioButton rdbtnMale = new JRadioButton("남자");
+		rdbtnMale = new JRadioButton("남자");
 		rdbtnMale.setVerticalAlignment(SwingConstants.BOTTOM);
 		pGender.add(rdbtnMale);
 		
@@ -114,15 +135,15 @@ public class EmployeeDetailPanel extends AbstractContentPanel<EmployeeDetail> im
 		pContet.add(lblPass1);
 		
 		tFPass1 = new JPasswordField();
+		tFPass1.getDocument().addDocumentListener(listener);
 		pContet.add(tFPass1);
-		tFPass1.setColumns(10);
 		
 		JLabel lblPass2 = new JLabel("비밀번호 확인");
 		lblPass2.setHorizontalAlignment(SwingConstants.RIGHT);
 		pContet.add(lblPass2);
 		
 		tFPass2 = new JPasswordField();
-		tFPass2.setColumns(10);
+		tFPass2.getDocument().addDocumentListener(listener);
 		pContet.add(tFPass2);
 		
 		JPanel pSpace = new JPanel();
@@ -133,22 +154,60 @@ public class EmployeeDetailPanel extends AbstractContentPanel<EmployeeDetail> im
 		lblConfirm.setHorizontalAlignment(SwingConstants.CENTER);
 		lblConfirm.setFont(new Font("굴림", Font.BOLD, 20));
 		pContet.add(lblConfirm);
-	}
-
-	@Override
-	public void setItem(EmployeeDetail t) {
 		
+	}
+	public void setTfempno(Employee empNo) {
+		tFEmpNo.setText(String.valueOf(empNo.getEmpNo()));
+
+	}
+	
+	@Override
+	public void setItem(EmployeeDetail item) {
+		tFEmpNo.setText(String.valueOf(item.getEmpNo()));
+		byte[] iconBytes = item.getPic();
+		ImageIcon icon = new ImageIcon(iconBytes);
+		lblPic.setIcon(icon);
+		dateHire.setDate(item.getHiredate());
+		if(item.isGender()) {
+			rdbtnFemale.setSelected(true);
+		}else {
+			rdbtnMale.setSelected(true);
+		}
 	}
 
 	@Override
 	public EmployeeDetail getItem() {
-		return null;
+		validCheck();
+		int empNo = Integer.parseInt(tFEmpNo.getText().trim());
+		boolean gender = rdbtnFemale.isSelected()? true :false;
+		Date hiredate = dateHire.getDate();
+		String pass = String.valueOf(tFPass1.getPassword());
+		byte[] pic = getImage();
+		return new EmployeeDetail(empNo, gender, hiredate, pass, pic);
 	}
+	
+	private byte[] getImage() {		
+		try(ByteArrayOutputStream baos = new ByteArrayOutputStream()){
+			ImageIcon icon = (ImageIcon) lblPic.getIcon();
+			BufferedImage bi = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
+			//이미지 생성, 만들어주기   icon-> image
+			Graphics2D g2 = bi.createGraphics();
+			g2.drawImage(icon.getImage(), 0, 0, null);
+			g2.dispose();
+			//입출력
+			ImageIO.write(bi, "png", baos);
+			return baos.toByteArray();
+			
+		} catch (IOException e) {
+		e.printStackTrace();
+	}
+	return null;
+}
 
 	@Override
 	public void validCheck() {
-		if(!lblConfirm.getText().equals("일치")) {
-//			throw new InvalidCheckException("비밀번호 불일치");
+		if(!lblConfirm.getText().equals("불일치")) {
+			throw new InvalidCheckException("패스워드 불일치");
 		}
 		
 	}
@@ -185,9 +244,37 @@ public class EmployeeDetailPanel extends AbstractContentPanel<EmployeeDetail> im
 			
 		}
 		String chooserFilePath = chooser.getSelectedFile().getPath();
-		loadPic(chooserFilePath);
-		
-	
-	
+		loadPic(chooserFilePath);	
 	}
+	
+	DocumentListener listener = new DocumentListener() {		
+		
+		@Override
+		public void removeUpdate(DocumentEvent e) {
+			getMessage();
+		}
+		
+		@Override
+		public void insertUpdate(DocumentEvent e) {
+			getMessage();
+		}
+		
+		@Override
+		public void changedUpdate(DocumentEvent e) {
+			getMessage();
+		}
+		
+		private void getMessage() {
+			String pw1 = new String(tFPass1.getPassword());
+			String pw2 = String.valueOf(tFPass2.getPassword());
+			if(pw1.equals(pw2)) {
+				lblConfirm.setText("일치");
+			}else {
+				lblConfirm.setText("불일치");
+			}
+			
+			
+		}
+	};
+	private JRadioButton rdbtnMale;
 }

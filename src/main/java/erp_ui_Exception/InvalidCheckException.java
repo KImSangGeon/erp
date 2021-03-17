@@ -9,6 +9,9 @@ public class InvalidCheckException extends RuntimeException {
 	public InvalidCheckException(Throwable cause) {
 		super("목록을 선택하세요.", cause);
 	}
+	public InvalidCheckException(String message) {
+		super(message);
+	}
 	
 	
 }

@@ -1,5 +1,7 @@
 package erp_dao;
 
+import java.util.List;
+
 import erp_dto.Employee;
 import erp_dto.EmployeeDetail;
 
@@ -9,5 +11,5 @@ public interface EmployeeDetailDao {
 	
 	int insertEmployeeDetail(EmployeeDetail empDetail);
 	int updateEmployeeDetail(EmployeeDetail empDetail);
-	int deliteEmployeeDetail(Employee employee);
+	int deleteEmployeeDetail(Employee employee);
 }

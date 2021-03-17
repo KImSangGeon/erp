@@ -2,8 +2,10 @@ package erp_dao_impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import erp_dao.EmployeeDetailDao;
 import erp_dto.Employee;
@@ -26,8 +28,28 @@ public class EmployeeDetailDaoImpl implements EmployeeDetailDao {
 
 	@Override
 	public EmployeeDetail selectEmployeeDetailByNo(Employee employee) {
-		// TODO Auto-generated method stub
+		String sql = "select empno, pic, gender, hiredate from emp_detail where empno = ?";
+		try (Connection con = JdbcConn.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setInt(1, employee.getEmpNo());
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					return getEmployeeDetail(rs);
+				}
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
+	}
+	private EmployeeDetail getEmployeeDetail(ResultSet rs) throws SQLException {
+		System.out.println("!@#@!#@#!3");
+		int empNo = rs.getInt("empno");
+		boolean gender = rs.getBoolean("gender");
+		Date hireDate = rs.getTimestamp("hiredate");
+		byte[] pic = rs.getBytes("pic");		
+		return new EmployeeDetail(empNo, gender, hireDate, pic);
 	}
 
 	@Override
@@ -52,14 +74,34 @@ public class EmployeeDetailDaoImpl implements EmployeeDetailDao {
 
 	@Override
 	public int updateEmployeeDetail(EmployeeDetail empDetail) {
-		// TODO Auto-generated method stub
+			String sql = "update erp.emp_detail set pic = ?, gender = ?, hiredate= ?, pass = password(?) where empno = ?";
+		try(Connection con = JdbcConn.getConnection();
+		PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setBytes(1, empDetail.getPic());
+			pstmt.setBoolean(2, empDetail.isGender());
+			pstmt.setTimestamp(3, new Timestamp(empDetail.getHiredate().getTime()));
+			//utul.Date -> sql.Date로 변환
+			pstmt.setString(4, empDetail.getPass());
+			pstmt.setInt(5, empDetail.getEmpNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}					
 		return 0;
 	}
 
 	@Override
-	public int deliteEmployeeDetail(Employee employee) {
-		// TODO Auto-generated method stub
+	public int deleteEmployeeDetail(Employee employee) {
+		String sql = "delete from erp.emp_detail where empno = ?";
+		try (Connection con = JdbcConn.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setInt(1, employee.getEmpNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return 0;
 	}
+
 
 }
