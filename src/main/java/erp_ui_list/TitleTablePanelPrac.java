@@ -2,7 +2,9 @@ package erp_ui_list;
 
 import javax.swing.SwingConstants;
 
+import erp_dto.Employee;
 import erp_dto.Title;
+import erp_ui_Exception.NotSelectedExceotion;
 import erp_ui_service.TitleService;
 import erp_ui_service.TitleServicePrac;
 
@@ -34,6 +36,17 @@ public class TitleTablePanelPrac extends AbstractCustomTablePanel<Title> {
 	
 	public void setService(TitleServicePrac service) {
 		this.service = service;
+	}
+
+	@Override
+	public Title getItem() {
+		int row = table.getSelectedRow();
+		int TitleNo = (int) table.getValueAt(row, 0);
+
+		if (row == -1) {
+			throw new NotSelectedExceotion();
+		}
+		return list.get(list.indexOf(new Title(TitleNo)));
 	}
 
 }

@@ -3,6 +3,8 @@ package erp_ui_list;
 import javax.swing.SwingConstants;
 
 import erp_dto.Employee;
+import erp_dto.Title;
+import erp_ui_Exception.NotSelectedExceotion;
 import erp_ui_service.EmployeeService;
 
 @SuppressWarnings("serial")
@@ -39,6 +41,17 @@ public class EmployeeTablePanel extends AbstractCustomTablePanel<Employee> {
 
 	public void setService(EmployeeService service) {
 		this.service = service;
+	}
+	@Override
+	public Employee getItem() {
+		int row = table.getSelectedRow();
+		int EmpNo = (int) table.getValueAt(row, 0);
+
+		if (row == -1) {
+			throw new NotSelectedExceotion();
+		}
+		return list.get(list.indexOf(new Employee(EmpNo)));
+		
 	}
 
 }

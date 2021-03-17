@@ -3,6 +3,8 @@ package erp_ui_list;
 import javax.swing.SwingConstants;
 
 import erp_dto.Department;
+import erp_dto.Title;
+import erp_ui_Exception.NotSelectedExceotion;
 import erp_ui_service.DeptServicePrac;
 
 @SuppressWarnings("serial")
@@ -31,6 +33,17 @@ public class DepartmentTablePanelPrac extends AbstractCustomTablePanel<Departmen
 	@Override
 	protected Object[] toArray(Department t) {
 		return new Object[] {t.getDeptNo(),t.getDeptName(),t.getFloor()};
+	}
+
+	@Override
+	public Department getItem() {
+		int row = table.getSelectedRow();
+		int DeptNo = (int) table.getValueAt(row, 0);
+
+		if (row == -1) {
+			throw new NotSelectedExceotion();
+		}
+		return list.get(list.indexOf(new Department(DeptNo)));
 	}
 
 }

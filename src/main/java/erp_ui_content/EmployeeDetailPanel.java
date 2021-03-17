@@ -60,7 +60,7 @@ public class EmployeeDetailPanel extends AbstractContentPanel<EmployeeDetail> im
 	}
 	private void loadPic(String imgFilePath) {
 		Image changeImageIcon =null;
-		if(imgPath == null) {
+		if(imgFilePath == null) {
 			 ImageIcon icon = new ImageIcon(imgPath + "NoImage.jpg");
 			changeImageIcon = icon.getImage().getScaledInstance(100, 150, Image.SCALE_SMOOTH);
 		}else {
@@ -177,11 +177,15 @@ public class EmployeeDetailPanel extends AbstractContentPanel<EmployeeDetail> im
 
 	@Override
 	public EmployeeDetail getItem() {
-		validCheck();
+		validCheck();		
 		int empNo = Integer.parseInt(tFEmpNo.getText().trim());
+		
 		boolean gender = rdbtnFemale.isSelected()? true :false;
+		
 		Date hiredate = dateHire.getDate();
+	
 		String pass = String.valueOf(tFPass1.getPassword());
+	
 		byte[] pic = getImage();
 		return new EmployeeDetail(empNo, gender, hiredate, pass, pic);
 	}
@@ -206,7 +210,7 @@ public class EmployeeDetailPanel extends AbstractContentPanel<EmployeeDetail> im
 
 	@Override
 	public void validCheck() {
-		if(!lblConfirm.getText().equals("불일치")) {
+		if(lblConfirm.getText().equals("불일치")) {
 			throw new InvalidCheckException("패스워드 불일치");
 		}
 		

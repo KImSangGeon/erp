@@ -8,16 +8,16 @@ import javax.swing.border.EmptyBorder;
 
 import erp_ui_list.TitleTablePanelPrac;
 import erp_ui_service.TitleServicePrac;
+import erp_ui_content.TitlePanel;
 
 public class TitleManagerPrac extends JFrame {
 
 	private JPanel contentPane;
 	private TitleTablePanelPrac pList;
 	private TitleServicePrac service;
-
-
 	
 	public TitleManagerPrac() {
+		service = Tit
 		initialize();
 	}
 	private void initialize() {
@@ -29,9 +29,9 @@ public class TitleManagerPrac extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 		
-//		pContet = new JPanel();
-//		contentPane.add(pContet);
-		
+		TitlePanel panel = new TitlePanel();
+		contentPane.add(panel);
+				
 		JPanel pBtns = new JPanel();
 		contentPane.add(pBtns);
 		
@@ -39,12 +39,11 @@ public class TitleManagerPrac extends JFrame {
 		pBtns.add(btnAdd);
 		
 		JButton btnCancel = new JButton("취소");
-		pBtns.add(btnCancel);
+		pBtns.add(btnCancel);		
 		
 		
-		
-		TitleTablePanelPrac panel = new TitleTablePanelPrac();
-		contentPane.add(panel);
+		TitleTablePanelPrac pPanel = new TitleTablePanelPrac();
+		contentPane.add(pPanel);
 	}
 
 }

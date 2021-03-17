@@ -94,7 +94,6 @@ public class TestFrame extends JFrame implements ActionListener  {
 		}
 	}
 	protected void actionPerformedBtnNewButton(ActionEvent e) {
-		System.out.println("SDAD");
 		EmployeeDetail employeeDetail = panel.getItem();
 		JOptionPane.showMessageDialog(null, employeeDetail);
 		

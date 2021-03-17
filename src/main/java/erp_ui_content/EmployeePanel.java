@@ -122,12 +122,6 @@ public class EmployeePanel extends AbstractContentPanel<Employee> implements Ite
 		spinSalary.setModel(new SpinnerNumberModel(2000000, 1000000, 5000000, 100000));
 		pItem.add(spinSalary);
 	}
-//	public Employee(int empNo, String empName, 
-//	Title title, Employee manager, int salary, Department dept)
-	public void setEmployee(Employee employee) {
-		
-		
-	}
 	
 
 	public void itemStateChanged(ItemEvent e) {
@@ -189,7 +183,7 @@ public class EmployeePanel extends AbstractContentPanel<Employee> implements Ite
 		cmbTitle.setSelectedItem(-1);
 		cmbDept.setSelectedItem(-1);
 		cmbManager.setSelectedItem(-1);
-		spinSalary.setValue("");
+		spinSalary.setValue(2000000);
 		
 	}
 

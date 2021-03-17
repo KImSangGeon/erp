@@ -25,7 +25,6 @@ public class EmployeeDetailUi extends JFrame implements ActionListener  {
 	private EmployeeDetailPanel pItem;
 	private EmployeeDetailService service;
 	private JButton btnCancel;
-	private JButton btnDel;
 	
 	
 
@@ -45,24 +44,24 @@ public class EmployeeDetailUi extends JFrame implements ActionListener  {
 		contentPane.add(pItem, BorderLayout.CENTER);
 		
 		pBtns = new JPanel();
-		if(isBtns) {		
+			
 		contentPane.add(pBtns, BorderLayout.SOUTH);
 		
-		btnAdd = new JButton("추가");
+		btnAdd = new JButton();
 		btnAdd.addActionListener(this);
 		pBtns.add(btnAdd);
 		
-		btnCancel = new JButton("취소");
+		btnCancel = new JButton();
 		btnCancel.addActionListener(this);
 		pBtns.add(btnCancel);
 		
-		
-	}else {
-		contentPane.add(pBtns, BorderLayout.SOUTH);
-		
-		btnDel = new JButton("삭제");
-		btnDel.addActionListener(this);
-		pBtns.add(btnDel);
+		if(isBtns) {
+			btnAdd.setText("추가");
+			btnCancel.setText("취소");
+		}
+	else {
+		btnAdd.setText("수정");
+		btnCancel.setText("삭제");
 		
 	}
 	}
@@ -76,27 +75,13 @@ public class EmployeeDetailUi extends JFrame implements ActionListener  {
 		
 		
 	}
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					EmployeeDetailService service = new EmployeeDetailService();
-					EmployeeDetailUi frame = new EmployeeDetailUi(true, service);
-//					frame.setEmpNo(new Employee(1365));
-					frame.setEmpNo(new Employee(2106));
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 	
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnDel) {
+		if (e.getActionCommand().contentEquals("삭제")) {
 			actionPerformedBtnDel(e);
 		}
-		if (e.getSource() == btnCancel) {
+		if (e.getActionCommand().contentEquals("취소")) {
 			actionPerformedBtnCancel(e);
 		}
 		if (e.getActionCommand().contentEquals("추가")) {
@@ -111,6 +96,7 @@ public class EmployeeDetailUi extends JFrame implements ActionListener  {
 		service.modifyEmployeeDetail(UpdateEmpDetail);
 		pItem.clearTf();
 		JOptionPane.showMessageDialog(null, "수정완료");
+		dispose();
 		
 	}
 	protected void actionPerformedBtnAdd(ActionEvent e) {
@@ -120,6 +106,7 @@ public class EmployeeDetailUi extends JFrame implements ActionListener  {
 		service.addEmployeeDetail(newEmpDetail);
 		pItem.clearTf();
 		JOptionPane.showMessageDialog(null, "추가완료");
+		dispose();
 		
 	}
 	protected void actionPerformedBtnCancel(ActionEvent e) {

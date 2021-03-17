@@ -28,15 +28,15 @@ public abstract class  AbstractCustomTablePanel<T> extends JPanel {
 	
 
 	}
-	public T getItem() {
+	public abstract T getItem(); 
+	/*{
 		int idx = table.getSelectedRow();
 		if(idx == -1 ) {
 		throw new NotSelectedExceotion();
 		}
-			return list.get(idx);
-		
+			return list.get(idx);		
 	}
-	
+	*/
 	public void loadData() {
 		initList();
 		setList();

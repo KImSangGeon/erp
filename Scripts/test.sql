@@ -48,6 +48,9 @@ update erp.emp_detail
 select *
 from erp.emp_detail ;
 
+select *
+from employee;
+
 
 select empno, pic, gender, hiredate from erp.emp_detail where empno = 1003;
 select empno, pic, gender, hiredate from emp_detail where empno = 1003;
