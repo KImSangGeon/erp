@@ -31,6 +31,12 @@ public abstract class AbstractManagerUi<T> extends JFrame implements ActionListe
 	protected JButton btnAdd;
 	protected JButton btnClear;
 
+	protected JMenuItem empListByTitleItem;
+	
+	protected static final String TITLE_MENU =  "동일 직책 사원 보기"; 
+	protected static final String DEPT_MENU =  "동일 부서 사원 보기"; 
+	protected static final String EMP_MENU =  "사원 세부정보 보기"; 
+
 	
 	public AbstractManagerUi() {
 		
@@ -83,7 +89,7 @@ public abstract class AbstractManagerUi<T> extends JFrame implements ActionListe
 		deleteItem.addActionListener(this);
 		Popup.add(deleteItem);
 		
-		JMenuItem empListByTitleItem = new JMenuItem("동일 직책 사원 보기");
+		empListByTitleItem = new JMenuItem("동일 직책 사원 보기");
 		empListByTitleItem.addActionListener(this);
 		Popup.add(empListByTitleItem);		
 		
@@ -99,17 +105,12 @@ public abstract class AbstractManagerUi<T> extends JFrame implements ActionListe
 			if(e.getActionCommand().contentEquals("수정")) {
 				actionPerformedMenuUpdate();
 			}
-			if(e.getActionCommand().contentEquals("동일 직책 사원 보기")) {
-				/*
-				 * 1. EmployeeDao -> selectEmployeeByTitle() 추가
-				 * 2. EmployeeDaoImpl -> selectEmployeeByTitle() 구현
-				 * 3. EmployeeDaoTest -> Test하기
-				 * 4. TitleService -> EmployeeDaoImpl field 추가 및 메서드 추가
-				 * 5. 아래 기능 추가
-				 * 6. 예외찾아서 추가하기 (신규 직책 추가 시 NullPointException)
-				 */
+			if(e.getActionCommand().contentEquals(AbstractManagerUi.TITLE_MENU)||
+					e.getActionCommand().contentEquals(AbstractManagerUi.DEPT_MENU)||
+					e.getActionCommand().contentEquals(AbstractManagerUi.EMP_MENU)) {
 				actionPerformedMenuGubun();
 			 }
+			
 			}else {			
 			if (e.getSource() == btnClear) {
 				actionPerformedBtnCancel(e);

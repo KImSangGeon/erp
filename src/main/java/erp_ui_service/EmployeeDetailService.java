@@ -8,6 +8,7 @@ import erp_dto.EmployeeDetail;
 public class EmployeeDetailService {
 	private EmployeeDetailDao empDetailDao = EmployeeDetailDaoImpl.getInstance();
 	
+<<<<<<< HEAD
 	public EmployeeDetail selectEmployeeDetailByEmpNo(Employee	employee) {
 		return empDetailDao.selectEmployeeDetailByNo(employee);
 	}
@@ -21,5 +22,9 @@ public class EmployeeDetailService {
 	}
 	public void removeEmployeeDetail(Employee employee) {
 		empDetailDao.deleteEmployeeDetail(employee);
+=======
+	public EmployeeDetail selectEmployeeDetailByEmpNo(Employee employee) {
+		return empDetailDao.selectEmployeeDetailByNo(employee);
+>>>>>>> refs/heads/3/17_2part
 	}
 }
