@@ -1,23 +1,35 @@
 package erp_ui;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.border.Border;
 
 import erp_dto.Employee;
+import erp_dto.EmployeeDetail;
 import erp_ui_content.AbstractContentPanel;
+import erp_ui_content.EmployeeDetailPanel;
 import erp_ui_content.EmployeePanel;
 import erp_ui_list.AbstractCustomTablePanel;
 import erp_ui_list.EmployeeTablePanel;
+import erp_ui_service.EmployeeDetailService;
 import erp_ui_service.EmployeeService;
 
 @SuppressWarnings("serial")
 public class EmployeeManagerUi extends AbstractManagerUi<Employee> {
 	private EmployeeService service;
+	private EmployeeDetailService detailservice;
+	
+	public EmployeeManagerUi() {
+		empListByTitleItem.setText(AbstractManagerUi.EMP_MENU);
+	}
 	
 	@Override
 	protected void setService() {
 		service = new EmployeeService();
+		detailservice = new EmployeeDetailService();
 	}
 
 	@Override
@@ -40,7 +52,23 @@ public class EmployeeManagerUi extends AbstractManagerUi<Employee> {
 
 	@Override
 	protected void actionPerformedMenuGubun() {
-		throw new UnsupportedOperationException("구현안할거임");
+		Employee emp = pList.getItem();
+		EmployeeDetail empDetail = detailservice.selectEmployeeDetailByEmpNo(emp);
+		//나중에 처리
+				if(empDetail == null) {
+					JOptionPane.showMessageDialog(null, "세부정보 없음");
+					return;
+				}
+		JFrame subFrame = new JFrame("사원 세부 정보");		
+		subFrame.setBounds(this.getWidth(), this.getHeight(), 450, 500);
+		
+		EmployeeDetailPanel subDetailPanel = new EmployeeDetailPanel();
+		subDetailPanel.setItem(empDetail);
+		
+		subFrame.add(subDetailPanel, BorderLayout.CENTER);
+		subFrame.setVisible(true);
+				
+//		throw new UnsupportedOperationException("구현안할거임");
 	}
 
 	@Override
