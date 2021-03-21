@@ -12,36 +12,23 @@ import erp_dto.Department;
 import erp_dto.Employee;
 import erp_dto.Title;
 
-@SuppressWarnings("serial")
-public class EmployeeService  {
+public class EmployeeServicePrac {
 	private DepartmentDao deptDao = DepartmentImpl.getInstance();
-	private TitleDao titleDao = TitleDaoImpl.getInstance();	
-	private EmployeeDao EmpDao = EmployeeImpl.getInstance();
+	private EmployeeDao empDao = EmployeeImpl.getInstance();
+	private TitleDao titleDao = TitleDaoImpl.getInstance();
 	
-	
-	public List<Employee> showEmpList(){
-		return EmpDao.selectEmployeeByAll();
+	public List<Employee> showEmpLists(){
+		return empDao.selectEmployeeByAll();
 	}
-	
 	public List<Department> showDeptList(){
 		return deptDao.selectDepartmentByAll();
 	}
+	
 	public List<Title> showTitleList(){
 		return titleDao.selectTitleByAll();
 	}
 	public List<Employee> showEmployeeGroupByDept(Department dept){
-		return EmpDao.selectEmployeeByDept(dept);
+		return empDao.selectEmployeeByDept(dept);
 	}
 	
-	public void removeEmployee(Employee employee) {
-		EmpDao.deleteEmployee(employee);
-	}
-	public void modifyEmployee(Employee employee) {
-		EmpDao.updateEmployee(employee);
-	}
-	public void addEmployee(Employee employee) {
-		EmpDao.insertEmployee(employee);
-	}
-	
-
 }

@@ -1,23 +1,34 @@
 package erp;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.GridLayout;
-import erp_ui_list.TitleTablePanelPrac;
-import erp_ui_list.DepartmentTablePanelPrac;
 
-public class TestFramePra extends JFrame {
+import erp_ui_content.EmployeePanelPrac;
+import erp_ui_list.DepartmentTablePanelPrac;
+import erp_ui_list.TitleTablePanelPrac;
+import erp_ui_service.DeptServicePrac;
+import erp_ui_service.EmployeeServicePrac;
+import erp_ui_service.TitleServicePrac;
+import erp_ui_list.EmployeeTablePanelPrac;
+
+public class TestFramePra extends JFrame  {
 
 	private JPanel contentPane;
+	private TitleServicePrac service;
+	private TitleTablePanelPrac titlePanel;
+	private DepartmentTablePanelPrac deptPanel;
+	private DeptServicePrac	deptservice;
+	private EmployeeServicePrac empservice;
+	private EmployeeTablePanelPrac empPanel;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
+				try {					
 					TestFramePra frame = new TestFramePra();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -28,6 +39,9 @@ public class TestFramePra extends JFrame {
 	}
 
 	public TestFramePra() {
+		service = new TitleServicePrac();
+		deptservice = new DeptServicePrac();
+		empservice = new EmployeeServicePrac();
 		initialize();
 	}
 	private void initialize() {
@@ -38,14 +52,23 @@ public class TestFramePra extends JFrame {
 		setContentPane(contentPane);
 		
 		
-		TitleTablePanelPrac titlePanel = new TitleTablePanelPrac();
+		titlePanel = new TitleTablePanelPrac();
+		titlePanel.setService(service);		
 		titlePanel.loadData();
 		contentPane.setLayout(new GridLayout(0, 1, 0, 0));
 		contentPane.add(titlePanel);
 		
-		DepartmentTablePanelPrac deptPanel = new DepartmentTablePanelPrac();
+		deptPanel = new DepartmentTablePanelPrac();
+		deptPanel.setService(deptservice);		
 		deptPanel.loadData();
-		contentPane.add(deptPanel);
+		contentPane.add(deptPanel);		
+		
+		
+		empPanel = new EmployeeTablePanelPrac();
+		empPanel.setService(empservice);
+		empPanel.loadData();
+		contentPane.add(empPanel);
 	}
 
+	
 }

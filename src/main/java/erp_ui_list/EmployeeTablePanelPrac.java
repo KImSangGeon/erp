@@ -4,17 +4,34 @@ import javax.swing.SwingConstants;
 
 import erp_dto.Employee;
 import erp_ui_Exception.NotSelectedExceotion;
-import erp_ui_service.EmployeeService;
 import erp_ui_service.EmployeeServicePrac;
 
 @SuppressWarnings("serial")
-public class EmployeeTablePanel extends AbstractCustomTablePanel<Employee> {
-	private EmployeeService	service;
+public class EmployeeTablePanelPrac extends AbstractCustomTablePanel<Employee> {
+	public EmployeeTablePanelPrac() {
+	}
+	private EmployeeServicePrac service;
+	
+	public void setService(EmployeeServicePrac service) {
+		this.service = service;
+	}
+
+	@Override
+	public Employee getItem() {
+		int row = table.getSelectedRow();
+		int EmpNo = (int) table.getValueAt(row, 0);
+
+		if (row == -1) {
+			throw new NotSelectedExceotion();
+		}
+		return list.get(list.indexOf(new Employee(EmpNo)));
+	}
+
 	@Override
 	public void initList() {
-		list = service.showEmpList();
-		
+		list = service.showEmpLists();		
 	}
+
 	@Override
 	public String[] getColumnNames() {
 		return new String[] {"직원번호", "직원이름", "직책", "직속상사", "급여", "부서"};
@@ -35,24 +52,10 @@ public class EmployeeTablePanel extends AbstractCustomTablePanel<Employee> {
 				t.getEmpNo(),
 				t.getEmpName(),
 				String.format("%s(%d)", t.getTitle().gettName(), t.getTitle().gettNo()),
-				t.getManager().getEmpNo()==0?  "" : String.format("%s(%d)", t.getManager().getEmpName(), t.getManager().getEmpNo()),
+				t.getManager().getEmpNo()==0? "" : String.format("%s(%d)", t.getManager().getEmpName(), t.getManager().getEmpNo()),
 				String.format("%,d", t.getSalary()),
-				String.format("%s(%d)", t.getDept().getDeptName(), t.getDept().getDeptNo())};
-	}
-
-	public void setService(EmployeeService service) {
-		this.service = service;
-	}
-	@Override
-	public Employee getItem() {
-		int row = table.getSelectedRow();
-		int EmpNo = (int) table.getValueAt(row, 0);
-
-		if (row == -1) {
-			throw new NotSelectedExceotion();
-		}
-		return list.get(list.indexOf(new Employee(EmpNo)));
-		
+				String.format("%s(%d)", t.getDept().getDeptName(), t.getDept().getDeptNo())
+		};
 	}
 
 }

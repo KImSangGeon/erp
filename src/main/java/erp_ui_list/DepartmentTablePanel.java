@@ -11,6 +11,7 @@ import erp_ui_service.DeptService;
 public class DepartmentTablePanel extends AbstractCustomTablePanel<Department> {
 	private DeptService service;
 	
+	
 	@Override
 	public void initList() {
 		list = service.showDepartments();

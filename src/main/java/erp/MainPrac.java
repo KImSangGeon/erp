@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import erp_ui.DeptManagerPrac;
+import erp_ui.EmployeManagerPrac;
 import erp_ui.TitleManagerPrac;
 
 public class MainPrac extends JFrame implements ActionListener {
@@ -17,6 +19,7 @@ public class MainPrac extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private JButton btnTitle;
 	private JButton btnDepartment;
+	private JButton btnEmployee;
 
 	
 	public static void main(String[] args) {
@@ -52,11 +55,15 @@ public class MainPrac extends JFrame implements ActionListener {
 		btnDepartment.addActionListener(this);
 		contentPane.add(btnDepartment);
 		
-		JButton btnEmployee = new JButton("직원");
+		btnEmployee = new JButton("직원");
+		btnEmployee.addActionListener(this);
 		contentPane.add(btnEmployee);
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnEmployee) {
+			actionPerformedBtnEmployee(e);
+		}
 		if (e.getSource() == btnDepartment) {
 			actionPerformedBtnDepartment(e);
 		}
@@ -66,10 +73,14 @@ public class MainPrac extends JFrame implements ActionListener {
 	}
 	protected void actionPerformedBtnTitle(ActionEvent e) {
 		TitleManagerPrac frame = new TitleManagerPrac();
-		frame.setVisible(true);
-		
+		frame.setVisible(true);		
 	}
 	protected void actionPerformedBtnDepartment(ActionEvent e) {
-		
+		DeptManagerPrac frame = new DeptManagerPrac();
+		frame.setVisible(true);
+	}
+	protected void actionPerformedBtnEmployee(ActionEvent e) {
+		EmployeManagerPrac frame = new EmployeManagerPrac();
+		frame.setVisible(true);
 	}
 }

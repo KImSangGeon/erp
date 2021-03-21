@@ -3,6 +3,7 @@ package erp_ui_content;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -31,140 +32,127 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import org.omg.CORBA.IMP_LIMIT;
+
 import com.toedter.calendar.JDateChooser;
 
-import erp_dto.Employee;
 import erp_dto.EmployeeDetail;
 import erp_ui_Exception.InvalidCheckException;
 
-public class EmployeeDetailPanel extends AbstractContentPanel<EmployeeDetail> implements ActionListener {
-	
-	private String imgPath = System.getProperty("user.dir") + File.separator + "images" + File.separator;
-	private JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
-	
-	private JLabel lblPic;
+public class EmployeeDetailPanelPrac extends AbstractContentPanel<EmployeeDetail> implements ActionListener {
+	private JTextField tFempNo;
+	private JPasswordField pass1;
+	private JPasswordField pass2;
+	private JPanel pPic;
 	private JButton btnAddPic;
 	private JDateChooser dateHire;
 	private JRadioButton rdbtnFemale;
-	private JLabel lblConfirm;
-	private JPasswordField tFPass1;
-	private JPasswordField tFPass2;
-	private JTextField tFEmpNo;
 	private JRadioButton rdbtnMale;
+	private JLabel lblConfirm;
 	
+	private String imgPath = System.getProperty("user.dir") + File.separator + "images" + File.separator;
+	private JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
+	private JLabel lblPic;
+	
+	public EmployeeDetailPanelPrac() {
 
-	public EmployeeDetailPanel() {
-		
 		initialize();
 		loadPic(null);
 	}
 	private void loadPic(String imgFilePath) {
-		Image changeImageIcon =null;
+		Image changeImageIcon = null;
 		if(imgFilePath == null) {
-			 ImageIcon icon = new ImageIcon(imgPath + "NoImage.jpg");
+			ImageIcon icon = new ImageIcon(imgPath + "NoImage.jpg");
 			changeImageIcon = icon.getImage().getScaledInstance(100, 150, Image.SCALE_SMOOTH);
 		}else {
 			ImageIcon icon = new ImageIcon(imgFilePath);
-			changeImageIcon = icon.getImage().getScaledInstance(100, 150, Image.SCALE_SMOOTH);	
+			changeImageIcon = icon.getImage().getScaledInstance(100, 150, Image.SCALE_SMOOTH);
 		}
-		ImageIcon changeIcon = new ImageIcon(changeImageIcon);
-		lblPic.setIcon(changeIcon);
+		ImageIcon setIcon = new ImageIcon(changeImageIcon);
+		lblPic.setIcon(setIcon);
+		
 	}
 	private void initialize() {
-		setBorder(new TitledBorder(null, "사원세부정보", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(new BorderLayout(0, 0));
 		
 		JPanel pTop = new JPanel();
+		pTop.setBorder(new TitledBorder(null, "직원정보", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		add(pTop, BorderLayout.NORTH);
 		
-		JPanel pPic = new JPanel();
+		pPic = new JPanel();
 		pTop.add(pPic);
 		pPic.setLayout(new BorderLayout(0, 0));
 		
 		lblPic = new JLabel();
 		lblPic.setPreferredSize(new Dimension(100, 150));
-		pPic.add(lblPic, BorderLayout.NORTH);
+		pPic.add(lblPic, BorderLayout.WEST);
 		
-		btnAddPic = new JButton("사진 추가");
+		btnAddPic = new JButton("사진추가");
 		btnAddPic.addActionListener(this);
-		btnAddPic.setVerticalAlignment(SwingConstants.BOTTOM);
 		pPic.add(btnAddPic, BorderLayout.SOUTH);
 		
-		JPanel pItem = new JPanel();
-		add(pItem, BorderLayout.CENTER);
-		pItem.setLayout(new GridLayout(0, 1, 0, 0));
+		JPanel pContent = new JPanel();
+		add(pContent, BorderLayout.CENTER);
+		pContent.setLayout(new GridLayout(0, 2, 10, 2));
 		
-		JPanel pContet = new JPanel();
-		pItem.add(pContet);
-		pContet.setLayout(new GridLayout(0, 2, 10, 0));
+		JLabel lblempNo = new JLabel("사원번호");
+		lblempNo.setHorizontalAlignment(SwingConstants.RIGHT);
+		pContent.add(lblempNo);
 		
-		JLabel lblEmpNo = new JLabel("사원번호");
-		lblEmpNo.setHorizontalAlignment(SwingConstants.RIGHT);
-		pContet.add(lblEmpNo);
+		tFempNo = new JTextField();
+		tFempNo.setEditable(false);
+		pContent.add(tFempNo);
+		tFempNo.setColumns(10);
 		
-		tFEmpNo = new JTextField();
-		tFEmpNo.setEditable(false);
-		pContet.add(tFEmpNo);
-		tFEmpNo.setColumns(10);
-		
-		JLabel lblHireDate = new JLabel("입사일");
-		lblHireDate.setHorizontalAlignment(SwingConstants.RIGHT);
-		pContet.add(lblHireDate);
+		JLabel lblhireDate = new JLabel("입사일");
+		lblhireDate.setHorizontalAlignment(SwingConstants.RIGHT);
+		pContent.add(lblhireDate);
 		
 		dateHire = new JDateChooser();
-		pContet.add(dateHire);
+		pContent.add(dateHire);
 		
 		JLabel lblGender = new JLabel("성별");
 		lblGender.setHorizontalAlignment(SwingConstants.RIGHT);
-		pContet.add(lblGender);
+		pContent.add(lblGender);
 		
 		JPanel pGender = new JPanel();
-		pContet.add(pGender);
+		pContent.add(pGender);
+		pGender.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		rdbtnFemale = new JRadioButton("여자");
+		rdbtnFemale = new JRadioButton("여성");
 		rdbtnFemale.setSelected(true);
-		rdbtnFemale.setVerticalAlignment(SwingConstants.TOP);
 		pGender.add(rdbtnFemale);
 		
-		rdbtnMale = new JRadioButton("남자");
-		rdbtnMale.setVerticalAlignment(SwingConstants.BOTTOM);
+		rdbtnMale = new JRadioButton("남성");
 		pGender.add(rdbtnMale);
 		
 		JLabel lblPass1 = new JLabel("비밀번호");
 		lblPass1.setHorizontalAlignment(SwingConstants.RIGHT);
-		pContet.add(lblPass1);
+		pContent.add(lblPass1);
 		
-		tFPass1 = new JPasswordField();
-		tFPass1.getDocument().addDocumentListener(listener);
-		pContet.add(tFPass1);
+		pass1 = new JPasswordField();
+		pContent.add(pass1);
 		
-		tFPass2 = new JPasswordField();
-		tFPass2.getDocument().addDocumentListener(listener);
+		JLabel labPass2 = new JLabel("비밀번호확인");
+		labPass2.setHorizontalAlignment(SwingConstants.RIGHT);
+		pContent.add(labPass2);
 		
-		JLabel lblPass2 = new JLabel("비밀번호확인");
-		lblPass2.setHorizontalAlignment(SwingConstants.RIGHT);
-		pContet.add(lblPass2);
-		pContet.add(tFPass2);
+		pass2 = new JPasswordField();
+		pContent.add(pass2);
 		
 		JPanel pSpace = new JPanel();
-		pContet.add(pSpace);
+		pContent.add(pSpace);
 		
 		lblConfirm = new JLabel("New label");
-		lblConfirm.setForeground(Color.RED);
 		lblConfirm.setHorizontalAlignment(SwingConstants.CENTER);
-		lblConfirm.setFont(new Font("굴림", Font.BOLD, 20));
-		pContet.add(lblConfirm);
-		
+		lblConfirm.setForeground(Color.RED);
+		lblConfirm.setFont(new Font("굴림", Font.BOLD, 22));
+		pContent.add(lblConfirm);
 	}
-	public void setTfempno(Employee empNo) {
-		tFEmpNo.setText(String.valueOf(empNo.getEmpNo()));
-
-	}
-	
 	@Override
 	public void setItem(EmployeeDetail item) {
-		tFEmpNo.setText(String.valueOf(item.getEmpNo()));
-		byte[] iconBytes = item.getPic();
+		tFempNo.setText(String.valueOf(item.getEmpNo()));
+		byte[] iconBytes =item.getPic();
 		ImageIcon icon = new ImageIcon(iconBytes);
 		lblPic.setIcon(icon);
 		dateHire.setDate(item.getHiredate());
@@ -173,56 +161,51 @@ public class EmployeeDetailPanel extends AbstractContentPanel<EmployeeDetail> im
 		}else {
 			rdbtnMale.setSelected(true);
 		}
+		
 	}
-
 	@Override
 	public EmployeeDetail getItem() {
-		validCheck();		
-		int empNo = Integer.parseInt(tFEmpNo.getText().trim());		
-		boolean gender = rdbtnFemale.isSelected()? true :false;		
-		Date hiredate = dateHire.getDate();	
-		String pass = String.valueOf(tFPass1.getPassword());	
+		validCheck();
+		int empNo = Integer.parseInt(tFempNo.getText().trim());
+		boolean gender = rdbtnFemale.isSelected()? true : false;
+		Date hiredate = dateHire.getDate();
+		String pass = String.valueOf(pass1.getPassword());
 		byte[] pic = getImage();
 		return new EmployeeDetail(empNo, gender, hiredate, pass, pic);
-	}
-	
-	private byte[] getImage() {		
+		}
+	private byte[] getImage() {
 		try(ByteArrayOutputStream baos = new ByteArrayOutputStream()){
 			ImageIcon icon = (ImageIcon) lblPic.getIcon();
 			BufferedImage bi = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
-			//이미지 생성, 만들어주기   icon-> image
+			//이미지 생성 icon -> image
 			Graphics2D g2 = bi.createGraphics();
 			g2.drawImage(icon.getImage(), 0, 0, null);
 			g2.dispose();
 			//입출력
 			ImageIO.write(bi, "png", baos);
 			return baos.toByteArray();
+		
 			
 		} catch (IOException e) {
-		e.printStackTrace();
-	}
-	return null;
-}
-
-	@Override
-	public void validCheck() {
-		if(lblConfirm.getText().equals("불일치")) {
-			throw new InvalidCheckException("패스워드 불일치");
+			e.printStackTrace();
 		}
 		
+		return null;
 	}
-
+	@Override
+	public void validCheck() {
+		if(lblConfirm.getText().equals("불일치")){
+			throw new InvalidCheckException("패스워드 불일치");
+		}
+	}
 	@Override
 	public void clearTf() {
 		loadPic(null);
 		dateHire.setDate(new Date());
 		rdbtnFemale.setSelected(true);
-		tFPass1.setText("");
-		tFPass2.setText("");
+		pass1.setText("");
+		pass2.setText("");
 		lblConfirm.setText("");
-		
-		
-		
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -231,9 +214,8 @@ public class EmployeeDetailPanel extends AbstractContentPanel<EmployeeDetail> im
 		}
 	}
 	protected void actionPerformedBtnAddPic(ActionEvent e) {
-		FileNameExtensionFilter filter = new FileNameExtensionFilter
-				("JPG & PNG & GIF images", "jpg", "png", "gif");
-		
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & PNG & GIF images", "jpg", "png", "gif");
+	
 		chooser.setFileFilter(filter);
 		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		
@@ -241,14 +223,14 @@ public class EmployeeDetailPanel extends AbstractContentPanel<EmployeeDetail> im
 		if(res != JFileChooser.APPROVE_OPTION) {
 			JOptionPane.showMessageDialog(null, "파일을 선택하지 않았음", "경고", JOptionPane.WARNING_MESSAGE);
 			return;
-			
 		}
+		
 		String chooserFilePath = chooser.getSelectedFile().getPath();
-		loadPic(chooserFilePath);	
+		loadPic(chooserFilePath);
 	
 	}
 	
-	DocumentListener listener = new DocumentListener() {		
+	DocumentListener listener = new DocumentListener() {
 		
 		@Override
 		public void removeUpdate(DocumentEvent e) {
@@ -257,25 +239,24 @@ public class EmployeeDetailPanel extends AbstractContentPanel<EmployeeDetail> im
 		
 		@Override
 		public void insertUpdate(DocumentEvent e) {
-			getMessage();
+			getMessage();			
 		}
 		
 		@Override
 		public void changedUpdate(DocumentEvent e) {
-			getMessage();
+			getMessage();			
 		}
-		
+
 		private void getMessage() {
-			String pw1 = new String(tFPass1.getPassword());
-			String pw2 = String.valueOf(tFPass2.getPassword());
+			String pw1 = new String(pass1.getPassword());
+			String pw2 = new String(pass2.getPassword());
+			
 			if(pw1.equals(pw2)) {
 				lblConfirm.setText("일치");
 			}else {
 				lblConfirm.setText("불일치");
 			}
 			
-			
 		}
 	};
-	
 }

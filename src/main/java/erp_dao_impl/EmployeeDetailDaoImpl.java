@@ -44,7 +44,6 @@ public class EmployeeDetailDaoImpl implements EmployeeDetailDao {
 		return null;
 	}
 	private EmployeeDetail getEmployeeDetail(ResultSet rs) throws SQLException {
-		System.out.println("!@#@!#@#!3");
 		int empNo = rs.getInt("empno");
 		boolean gender = rs.getBoolean("gender");
 		Date hireDate = rs.getTimestamp("hiredate");

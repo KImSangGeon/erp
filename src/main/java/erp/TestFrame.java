@@ -64,6 +64,7 @@ public class TestFrame extends JFrame implements ActionListener  {
 		
 		pList = new EmployeeTablePanel();
 		pList.setService(service);
+		
 		pList.loadData();
 		contentPane.add(pList);
 		

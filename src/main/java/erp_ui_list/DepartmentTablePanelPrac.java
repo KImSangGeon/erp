@@ -10,7 +10,7 @@ import erp_ui_service.DeptServicePrac;
 @SuppressWarnings("serial")
 public class DepartmentTablePanelPrac extends AbstractCustomTablePanel<Department> {
 	
-	private DeptServicePrac service = new DeptServicePrac(); 
+	private DeptServicePrac service; 
 	
 	@Override
 	public void initList() {
@@ -33,6 +33,9 @@ public class DepartmentTablePanelPrac extends AbstractCustomTablePanel<Departmen
 	@Override
 	protected Object[] toArray(Department t) {
 		return new Object[] {t.getDeptNo(),t.getDeptName(),t.getFloor()};
+	}
+	public void setService(DeptServicePrac service) {
+		this.service = service;
 	}
 
 	@Override

@@ -17,7 +17,6 @@ public class SqlConstraintException extends RuntimeException {
 
 	public SqlConstraintException(String message, Throwable cause) {
 		super(message, cause);
-		// TODO Auto-generated constructor stub
 	}
 
 }

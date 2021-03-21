@@ -27,6 +27,11 @@ where empno = 1003;
 
 select * from employee;
 
+update employee
+   set title = 2
+ where empno = 322;
+
+
 --  pass 길이 확인
 --  단반향 함수(Hash :MD5)
 select password('aasadsadsadsadsdsaddsadsaa'), length(password('aaaasdsadsadsadadsadsadasdsa')) from dual;
