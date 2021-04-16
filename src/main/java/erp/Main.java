@@ -17,7 +17,7 @@ import erp_ui.TitleManagerUi;
 public class Main extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private JButton btnTitle;
+	private JButton	btnTitle;
 	private JButton btnDepartment;
 	private JButton btnEmployee;
 	private TitleManagerUi titleframe;

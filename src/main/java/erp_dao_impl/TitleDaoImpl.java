@@ -20,8 +20,6 @@ public class TitleDaoImpl implements TitleDao {
 		return instance;
 	}
 
-	public TitleDaoImpl() {
-	}
 
 	@Override
 	public List<Title> selectTitleByAll() {
@@ -36,6 +34,7 @@ public class TitleDaoImpl implements TitleDao {
 				}while(rs.next());
 //				System.out.println(list.size());
 				return list;
+				
 			}
 			
 		} catch (SQLException e) {
@@ -63,7 +62,6 @@ public class TitleDaoImpl implements TitleDao {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -93,9 +91,7 @@ public class TitleDaoImpl implements TitleDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		
-		
+		}		
 		return 0;
 	}
 

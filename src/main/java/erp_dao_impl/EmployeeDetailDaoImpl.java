@@ -61,7 +61,7 @@ public class EmployeeDetailDaoImpl implements EmployeeDetailDao {
 			pstmt.setBytes(2, empDetail.getPic());
 			pstmt.setBoolean(3, empDetail.isGender());
 			
-			//utul.Date -> sql.Date로 변환
+			//util.Date -> sql.Date로 변환
 			pstmt.setTimestamp(4, new Timestamp(empDetail.getHiredate().getTime()));
 			pstmt.setString(5, empDetail.getPass());
 			return pstmt.executeUpdate();

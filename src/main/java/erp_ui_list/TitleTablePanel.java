@@ -3,7 +3,7 @@ package erp_ui_list;
 import javax.swing.SwingConstants;
 
 import erp_dto.Title;
-import erp_ui_Exception.NotSelectedExceotion;
+import erp_ui_Exception.NotSelectedException;
 import erp_ui_service.TitleService;
 
 @SuppressWarnings("serial")
@@ -46,7 +46,7 @@ public class TitleTablePanel extends AbstractCustomTablePanel<Title> {
 		int titleNo = (int) table.getValueAt(row, 0);
 
 		if (row == -1) {
-			throw new NotSelectedExceotion();
+			throw new NotSelectedException();
 		}
 		return list.get(list.indexOf(new Title(titleNo)));
 

@@ -1,4 +1,4 @@
-package erp_dao;
+package erp_daoimpl;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,6 +15,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import erp_dao.EmployeeDetailDao;
 import erp_dao_impl.EmployeeDetailDaoImpl;
 import erp_dto.Employee;
 import erp_dto.EmployeeDetail;

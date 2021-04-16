@@ -18,7 +18,7 @@ import javax.swing.border.EmptyBorder;
 
 import erp_dto.Department;
 import erp_dto.Employee;
-import erp_ui_Exception.NotSelectedExceotion;
+import erp_ui_Exception.NotSelectedException;
 import erp_ui_Exception.SqlConstraintException;
 import erp_ui_content.DeptPanel;
 import erp_ui_list.DepartmentTablePanelPrac;
@@ -118,7 +118,7 @@ public class DeptManagerPrac extends JFrame implements ActionListener {
 				
 				JOptionPane.showMessageDialog(null, strList, "동일 직책사원", JOptionPane.INFORMATION_MESSAGE );
 			}
-			}catch(NotSelectedExceotion | SqlConstraintException e2) {
+			}catch(NotSelectedException | SqlConstraintException e2) {
 				JOptionPane.showMessageDialog(null, e2.getMessage());
 			}catch(Exception e2) {
 				e2.printStackTrace();

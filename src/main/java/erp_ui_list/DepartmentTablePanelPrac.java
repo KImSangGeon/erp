@@ -4,7 +4,7 @@ import javax.swing.SwingConstants;
 
 import erp_dto.Department;
 import erp_dto.Title;
-import erp_ui_Exception.NotSelectedExceotion;
+import erp_ui_Exception.NotSelectedException;
 import erp_ui_service.DeptServicePrac;
 
 @SuppressWarnings("serial")
@@ -44,7 +44,7 @@ public class DepartmentTablePanelPrac extends AbstractCustomTablePanel<Departmen
 		int DeptNo = (int) table.getValueAt(row, 0);
 
 		if (row == -1) {
-			throw new NotSelectedExceotion();
+			throw new NotSelectedException();
 		}
 		return list.get(list.indexOf(new Department(DeptNo)));
 	}

@@ -37,6 +37,7 @@ public class Title {
 		result = prime * result + tNo;
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

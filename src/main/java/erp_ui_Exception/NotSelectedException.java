@@ -1,13 +1,13 @@
 package erp_ui_Exception;
 
 @SuppressWarnings("serial")
-public class NotSelectedExceotion extends RuntimeException {
+public class NotSelectedException extends RuntimeException {
 
-	public NotSelectedExceotion(Throwable cause) {
+	public NotSelectedException(Throwable cause) {
 		super("목록을 선택하세요.", cause);
 	}
 
-	public NotSelectedExceotion() {
+	public NotSelectedException() {
 		super("목록을 선택하세요");
 	}
 

@@ -17,7 +17,7 @@ import javax.swing.border.EmptyBorder;
 import erp_dto.Employee;
 import erp_dto.Title;
 import erp_ui_Exception.InvalidCheckException;
-import erp_ui_Exception.NotSelectedExceotion;
+import erp_ui_Exception.NotSelectedException;
 import erp_ui_Exception.SqlConstraintException;
 import erp_ui_content.TitlePanel;
 import erp_ui_list.TitleTablePanelPrac;
@@ -119,7 +119,7 @@ public class TitleManagerPrac extends JFrame implements ActionListener  {
 								
 				JOptionPane.showMessageDialog(null, strList, "동일 직책 사원", JOptionPane.INFORMATION_MESSAGE);							
 			}
-			}catch(NotSelectedExceotion | SqlConstraintException e2) {
+			}catch(NotSelectedException | SqlConstraintException e2) {
 				JOptionPane.showMessageDialog(null, e2.getMessage());
 			}catch(Exception e2) {
 				e2.printStackTrace();

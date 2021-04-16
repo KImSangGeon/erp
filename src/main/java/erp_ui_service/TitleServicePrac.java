@@ -13,6 +13,8 @@ public class TitleServicePrac {
 
 	private TitleDao dao = TitleDaoImpl.getInstance();
 	private EmployeeDao Empdao = EmployeeImpl.getInstance();
+	
+	
 	public List<Title> showTitless(){
 		return dao.selectTitleByAll();		
 	}

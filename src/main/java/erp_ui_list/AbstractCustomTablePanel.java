@@ -15,9 +15,8 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import erp_ui_Exception.NotSelectedExceotion;
 
-
+@SuppressWarnings("serial")
 public abstract class  AbstractCustomTablePanel<T> extends JPanel {
 	protected JTable table;
 	protected List<T> list;
@@ -64,7 +63,7 @@ public abstract class  AbstractCustomTablePanel<T> extends JPanel {
 		return model;
 	}
 	public Object[][] getData() {
-		return new Object[][] {	{null, null, null},	};
+		return new Object[][] {{null, null, null}};
 	}
 	
 	public abstract String[] getColumnNames(); 

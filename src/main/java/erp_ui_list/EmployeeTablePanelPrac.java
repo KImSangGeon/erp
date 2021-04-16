@@ -3,7 +3,7 @@ package erp_ui_list;
 import javax.swing.SwingConstants;
 
 import erp_dto.Employee;
-import erp_ui_Exception.NotSelectedExceotion;
+import erp_ui_Exception.NotSelectedException;
 import erp_ui_service.EmployeeServicePrac;
 
 @SuppressWarnings("serial")
@@ -22,7 +22,7 @@ public class EmployeeTablePanelPrac extends AbstractCustomTablePanel<Employee> {
 		int EmpNo = (int) table.getValueAt(row, 0);
 
 		if (row == -1) {
-			throw new NotSelectedExceotion();
+			throw new NotSelectedException();
 		}
 		return list.get(list.indexOf(new Employee(EmpNo)));
 	}
